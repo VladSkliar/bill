@@ -33,6 +33,9 @@ class Bill(models.Model):
         ordering = ['title']
 
     def save(self, *args, **kwargs):
+        '''
+        Resize image to 200*200 px and save
+        '''
         super(Bill, self).save(*args, **kwargs)
         if self.image:
             image = Image.open(self.image)
