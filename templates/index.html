@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+{%block body%}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+    {%if regions%}
+      {% for obj in regions %}
+		<p><a href="{% url 'region_detail' pk=obj.id %}" >{{obj.title}}</a></p>
+	  {%endfor%}
+	{%else%}
+		<p>В базе еще нет областей</p>
+	{%endif%}
+    </div>
+  </div>
+</div>
+{%endblock%}

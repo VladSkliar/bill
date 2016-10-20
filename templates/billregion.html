@@ -1,0 +1,63 @@
+{% extends 'base.html'%}
+{%block body%}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      {% for region  in regions %}
+      {% if region.id == region_id %}
+		<div style='background:grey'><p><a  href="{% url 'region_detail' pk=region.id %}" >{{region.title}}</a></p></div>
+		{%else%}
+		<p><a href="{% url 'region_detail' pk=region.id %}" >{{region.title}}</a></p>
+		{%endif%}
+	  {%endfor%}
+
+    </div>
+    <div class="col-sm-8">
+      {%for bill in bills%}
+      	<a href="{% url 'bill_detail' pk=bill.id %}" >
+	      	<div style='border: solid 1px black;'>
+				<p>Название:<br>{{bill.title}}</p>
+				<p>Описание:<br>{{bill.description}}</p>
+				<p>Контакты:<br>{{bill.contacts}}</p>
+				{%if bill.image %}
+				<img src="{{bill.image.url}}" alt="альтернативный текст">
+				{%endif%}
+
+			</div>
+		</a>
+      
+	  {%endfor%}
+    </div>
+  </div>
+  {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+              {%if region_id%}
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'region_detail' pk=region_id %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'region_detail' pk=region_id%}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+              {%else%}
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'region_detail'%}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'region_detail'%}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+              {%endif%}
+            </span>
+        </div>
+    {% endif %}
+</div>
+
+
+{%endblock%}
+

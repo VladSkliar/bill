@@ -1,0 +1,21 @@
+
+{% extends 'base.html'%}
+{%block body%}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-5">
+      	<div style='border: solid 1px black;'>
+			<p>Название:<br>{{bill.title}}</p>
+			<p>Описание:<br>{{bill.description}}</p>
+			<p>Контакты:<br>{{bill.contacts}}</p>
+			{%if bill.image %}
+				<img src="{{bill.image.url}}" alt="альтернативный текст">
+			{%endif%}
+		</div>
+	<p><a href="{% url 'region_detail' pk=bill.region.id %}" >Вернуться к обьявлениям этой области</a></p>
+    </div>
+  </div>
+</div>
+{%endblock%}
